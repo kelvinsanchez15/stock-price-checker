@@ -45,7 +45,7 @@ const getLikes = async (symbol, like, ip) => {
 
 router.route('/').get(async (req, res) => {
   const { stock, like } = req.query;
-  const ip = req.connection.remoteAddress;
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   if (typeof stock === 'string') {
     const stockData = await getStock(stock);
